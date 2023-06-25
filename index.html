@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natsumi</title>
+  <script src="main.js"></script>
+  <link href="main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="controller">
+    <label for="video-devices">映像：</label>
+    <select id="video-devices"></select>
+    <input type="number" id="width" required maxlength="4" value="1920" />
+    <span>x</span>
+    <input type="number" id="height" required maxlength="4" value="1080" />
+    <br>
+    <label for="video-devices">音声：</label>
+    <select id="audio-devices"></select>
+    <br>
+    <button id="start">キャプチャ開始</button>
+  </div>
+  <video id="main-video" autoplay controls></video>
+</body>
+</html>
