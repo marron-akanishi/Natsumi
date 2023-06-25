@@ -57,15 +57,15 @@ window.onload = async () => {
 
     const isMS2109 = document.getElementById("is-ms2109").checked;
     if (isMS2109) {
-      const audioContext = new AudioContext({sampleRate: 96000});
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)({sampleRate: 96000});
       audioContext.destination.channelCount = 2;
-      await audioContext.resume();
       await audioContext.audioWorklet.addModule("./mono-to-stereo.js");
-      const mono2Stereo = new AudioWorkletNode(audioContext, "mono-to-stereo");
+      const mono2Stereo = new (window.AudioWorkletNode || window.webkitAudioWorkletNode)(audioContext, "mono-to-stereo");
       const source = audioContext.createMediaStreamSource(audioStream);
       source.connect(mono2Stereo);
       const destination = audioContext.createMediaStreamDestination();
       mono2Stereo.connect(destination);
+      await audioContext.resume();
       videoStream.addTrack(destination.stream.getAudioTracks()[0]);
     } else {
       videoStream.addTrack(audioStream.getAudioTracks()[0]);
@@ -75,7 +75,7 @@ window.onload = async () => {
     const rotate = document.getElementById("rotate-90")?.checked;
     if (rotate) {
       mainVideo.style.transformOrigin = "top left";
-      mainVideo.style.transform = `translate(0px, ${width}px) rotate(-90deg)`;
+      mainVideo.style.transform = `translate(0px, ${height}px) rotate(-90deg)`;
     }
     mainVideo.srcObject = videoStream;
   });
