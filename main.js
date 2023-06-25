@@ -58,6 +58,7 @@ window.onload = async () => {
     const isMS2109 = document.getElementById("is-ms2109").checked;
     if (isMS2109) {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)({sampleRate: 96000});
+      await audioContext.resume();
       audioContext.destination.channelCount = 2;
       await audioContext.audioWorklet.addModule("./mono-to-stereo.js");
       const mono2Stereo = new (window.AudioWorkletNode || window.webkitAudioWorkletNode)(audioContext, "mono-to-stereo");
@@ -65,7 +66,6 @@ window.onload = async () => {
       source.connect(mono2Stereo);
       const destination = audioContext.createMediaStreamDestination();
       mono2Stereo.connect(destination);
-      await audioContext.resume();
       videoStream.addTrack(destination.stream.getAudioTracks()[0]);
     } else {
       videoStream.addTrack(audioStream.getAudioTracks()[0]);
