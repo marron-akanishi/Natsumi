@@ -1,0 +1,22 @@
+class Mono2StereoProcessor extends AudioWorkletProcessor {
+  process(inputs, outputs, parameters) {
+    const input = inputs[0][0];
+    const leftOutput = outputs[0][0];
+    const rightOutput = outputs[0][1];
+
+    let i = 0;
+    while (i < input.length) {
+      leftOutput[i] = input[i + 1];
+      leftOutput[i + 1] = input[i + 1];
+
+      rightOutput[i] = input[i];
+      rightOutput[i + 1] = input[i];
+
+      i += 2;
+    }
+
+    return true;
+  }
+}
+
+registerProcessor("mono-to-stereo", Mono2StereoProcessor);

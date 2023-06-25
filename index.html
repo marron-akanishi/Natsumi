@@ -11,13 +11,18 @@
   <div class="controller">
     <label for="video-devices">映像：</label>
     <select id="video-devices"></select>
-    <input type="number" id="width" required maxlength="4" value="1920" />
+    <input type="number" id="width" required maxlength="4" value="1280" />
     <span>x</span>
-    <input type="number" id="height" required maxlength="4" value="1080" />
+    <input type="number" id="height" required maxlength="4" value="720" />
+    <span>@</span>
+    <input type="number" id="frame-rate" required maxlength="2" value="60" />
     <br>
     <label for="video-devices">音声：</label>
     <select id="audio-devices"></select>
+    <input type="number" id="sample-rate" required maxlength="6" value="96000" />
     <br>
+    <input type="checkbox" id="is-ms2109" checked />
+    <label for="is-ms2109">モノラル→ステレオ</label>
     <button id="start">キャプチャ開始</button>
   </div>
   <video id="main-video" autoplay controls></video>
